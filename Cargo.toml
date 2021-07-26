@@ -1,0 +1,19 @@
+[package]
+name = "relp-bin"
+version = "0.0.2"
+authors = ["Bram van den Heuvel <bram@vandenheuvel.online>"]
+edition = "2018"
+description = "Rust Exact Linear Programming"
+repository = "https://github.com/vandenheuvel/relp-bin"
+license = "GPL-3.0-only"
+
+keywords = ["linear", "exact", "precision", "ilp", "simplex"]
+categories = ["algorithms", "science"]
+
+[dependencies]
+relp = "0.0.6"
+relp-num = "0.0.5"
+clap = "3.0.0-beta.2"
+
+[profile.release]
+lto = true
