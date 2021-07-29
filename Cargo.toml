@@ -11,7 +11,7 @@ keywords = ["linear", "exact", "precision", "ilp", "simplex"]
 categories = ["algorithms", "science"]
 
 [dependencies]
-relp = "0.0.6"
+relp = "0.0.8"
 relp-num = "0.0.5"
 clap = "3.0.0-beta.2"
 
