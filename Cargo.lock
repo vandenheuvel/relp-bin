@@ -147,6 +147,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "index-utils"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "97f1e000709df91a0a61f249b551343a961c0642c60f1f2bd366a888aa437834"
+
+[[package]]
+name = "index-utils"
+version = "2.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "702b4666ac9f3ac6e038ae3091e1a67645fbdcb93b9c5d4a3dbd038436fa5e5d"
+
+[[package]]
 name = "indexmap"
 version = "1.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -246,14 +258,15 @@ dependencies = [
 
 [[package]]
 name = "relp"
-version = "0.0.6"
+version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "591e7419de00651b9b158688c3c31e886c74f1a84e253a5a71567a3d4c5de9d2"
+checksum = "3d6b6f7fef6b1545b189827d59a23b7b2fa3fbc2120d51f0920fe160fabe6b4b"
 dependencies = [
  "cumsum",
  "daggy",
  "enum-map",
  "fifo-set",
+ "index-utils 2.0.0",
  "itertools",
  "num-traits",
  "relp-num",
@@ -261,7 +274,7 @@ dependencies = [
 
 [[package]]
 name = "relp-bin"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "clap",
  "relp",
@@ -270,12 +283,13 @@ dependencies = [
 
 [[package]]
 name = "relp-num"
-version = "0.0.5"
+version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1eb0e5b761d000815fc6f38da11d8ad2c8e6110d642f44c29c06c0cf373385cb"
+checksum = "e6f7ef3e45808e1fe4f730c0ae7a08a1e695b4375d5b1efbbfa4865843c76881"
 dependencies = [
  "cc",
  "gcd",
+ "index-utils 1.0.0",
  "num-traits",
  "smallvec",
 ]
