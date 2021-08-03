@@ -2,7 +2,7 @@
 
 # Relp
 
-An exact linear program solver written in Rust. 
+An exact linear program solver written in Rust using the [Relp](https://github.com/vandenheuvel/relp) crate. 
 
 ## Usage
 
