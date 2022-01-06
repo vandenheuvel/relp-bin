@@ -2,9 +2,7 @@ use std::convert::TryInto;
 use std::path::Path;
 use std::process::exit;
 
-use clap::Clap;
-use relp_num::RationalBig;
-
+use clap::Parser;
 use relp::algorithm::{OptimizationResult, SolveRelaxation};
 use relp::algorithm::two_phase::matrix_provider::MatrixProvider;
 use relp::algorithm::two_phase::tableau::inverse_maintenance::carry::Carry;
@@ -13,11 +11,12 @@ use relp::data::linear_program::elements::LinearProgramType;
 use relp::data::linear_program::general_form::GeneralForm;
 use relp::data::linear_program::general_form::Scalable;
 use relp::io::import;
+use relp_num::RationalBig;
 
 /// An exact linear program solver written in rust.
-#[derive(Clap)]
-#[clap(version = "0.0.4", author = "Bram van den Heuvel <bram@vandenheuvel.online>")]
-struct Opts {
+#[derive(Parser)]
+#[clap(about, version)]
+struct Args {
     /// File containing the problem description
     problem_file: String,
     /// Disable presolving
@@ -29,9 +28,9 @@ struct Opts {
 }
 
 fn main() {
-    let opts: Opts = Opts::parse();
+    let args = Args::parse();
 
-    let path = Path::new(&opts.problem_file);
+    let path = Path::new(&args.problem_file);
     println!("Reading problem file: \"{}\"...", path.to_string_lossy());
 
     let mps = import(path)
@@ -40,7 +39,7 @@ fn main() {
     let mut general: GeneralForm<RationalBig> = mps.try_into()
         .expect("Problem is inconsistent");
 
-    if !opts.no_presolve {
+    if !args.no_presolve {
         println!("Presolving...");
         if let Err(program_type) = general.presolve() {
             match program_type {
@@ -56,7 +55,7 @@ fn main() {
 
     let constraint_type_counts = general.standardize();
 
-    let scaling = if !opts.no_scale {
+    let scaling = if !args.no_scale {
         println!("Scaling...");
         Some(general.scale())
     } else {
