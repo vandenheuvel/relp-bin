@@ -1,4 +1,5 @@
 use std::convert::TryInto;
+use std::fs::read_to_string;
 use std::path::Path;
 use std::process::exit;
 
@@ -10,8 +11,10 @@ use relp::algorithm::two_phase::tableau::inverse_maintenance::carry::lower_upper
 use relp::data::linear_program::elements::LinearProgramType;
 use relp::data::linear_program::general_form::GeneralForm;
 use relp::data::linear_program::general_form::Scalable;
-use relp::io::import;
-use relp_num::RationalBig;
+use relp::io::error::Import;
+use relp::io::mps;
+use relp::io::mps::MPS;
+use relp_num::{Rational64, RationalBig};
 
 /// An exact linear program solver written in rust.
 #[derive(Parser)]
@@ -25,6 +28,9 @@ struct Args {
     /// Disable scaling
     #[clap(long)]
     no_scale: bool,
+    /// Parsing mode that requires MPS fields to be in an exact column (2, 5, 15, 25, 40 and 50)
+    #[clap(long)]
+    fixed_parse_mode: bool,
 }
 
 fn main() {
@@ -33,7 +39,16 @@ fn main() {
     let path = Path::new(&args.problem_file);
     println!("Reading problem file: \"{}\"...", path.to_string_lossy());
 
-    let mps = import(path)
+    // Open and read the file
+    let program = read_to_string(path)
+        .map_err(Import::IO)
+        .expect("Couldn't read the file");
+
+    let mps: MPS<Rational64> = if args.fixed_parse_mode {
+        mps::parse_fixed(&program)
+    } else {
+        mps::parse_free(&program)
+    }
         .expect("Couldn't parse the file");
 
     let mut general: GeneralForm<RationalBig> = mps.try_into()
