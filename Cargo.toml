@@ -2,7 +2,7 @@
 name = "relp-bin"
 version = "0.0.6"
 authors = ["Bram van den Heuvel <bram@vandenheuvel.online>"]
-edition = "2018"
+edition = "2021"
 description = "An exact linear program solver written in Rust"
 repository = "https://github.com/vandenheuvel/relp-bin"
 license = "GPL-3.0-only"
